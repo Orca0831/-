@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>2</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            .container {
+                width: 100%;
+                min-height: 100vh;
+                display: flex;
+                justify-content: start;
+                background-color: #FCF8F5;
+                overflow: auto;
+            }
+
+            .order-menu {
+                width: 70%;
+                min-height: 100vh;
+                padding-bottom: 10px;
+            }
+
+            .main-text {
+                margin: 100px 0 0 120px;
+                font-size: 50px;
+                font-weight: bold;
+            }
+
+            .main {
+                width: 85%;
+                height: auto;
+                margin: 50px 0 120px 120px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .menu {
+                width: 350px;
+                height: 500px;
+                margin: 0 0 20px 0;
+            }
+
+            .menu-container {
+                width: 350px;
+                height: 350px;
+                border-radius: 20px;
+                overflow: hidden;
+            }
+
+            .menu-img {
+                width: 350px;
+                height: 350px;
+                background-color: #ff000088;
+                border-radius: 20px;
+                display: block;
+            }
+
+            .menu:nth-child(2) .menu-img { background-color: #FFC510; }
+            .menu:nth-child(3) .menu-img { background-color: #E3E4DD; }
+            .menu:nth-child(4) .menu-img { background-color: #9E664A; }
+            .menu:nth-child(5) .menu-img { background-color: #B96F32; }
+            .menu:nth-child(6) .menu-img { background-color: #FFCF44; }
+            .menu:nth-child(7) .menu-img { background-color: #DE3B28; }
+            .menu:nth-child(8) .menu-img { background-color: #85491A; }
+            .menu:nth-child(9) .menu-img { background-color: #ACC7BF; }
+
+
+            .add {
+                width: 200px;
+                height: 60px;
+                background-color: #fff;
+                margin: -40px 0 0 75px;
+                font-size: 18px;
+                font-weight: bold;
+                border-radius: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #BEB4B6;
+                cursor: pointer;
+            }
+
+            .menu-text {
+                margin: 40px 0 0 10px;
+            }
+
+            .sub {
+                font-size: 18px;
+                color: #BEB4B6;
+            }
+
+            .name {
+                font-size: 20px;
+                color: black;
+                font-weight: bold;
+                margin: 5px 0 5px 0;
+            }
+
+            .price {
+                font-size: 20px;
+                color: #ec1717;
+                font-weight: bold;
+            }
+
+            .order {
+                width: 500px;
+                height: 350px;
+                background-color: white;
+                margin: 100px 120px 0 0;
+                border-radius: 20px;
+            }
+
+            .cart-main {
+                font-size: 30px;
+                font-weight: bold;
+                color: #BD4D23;
+                margin: 25px;
+            }
+
+            .cart-img {
+                width: 150px;
+                height: 150px;
+                background-color: #88625A;
+                margin: 20px auto 0 auto;
+                border-radius: 50%;
+            }
+
+            .cart-sub {
+                font-size: 18px;
+                color: #85716E;
+                text-align: center;
+                margin: 20px 0 0 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="order-menu">
+                <div class="main-text">Desserts</div>
+                <div class="main">
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">waffle</div>
+                            <div class="name">Waffle with Berries</div>
+                            <div class="price">$6.50</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Creme Brulee</div>
+                            <div class="name">Vanila Bean Creme Brulee</div>
+                            <div class="price">$7.00</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Macaron</div>
+                            <div class="name">Mavcaron Mix of Five</div>
+                            <div class="price">$8.00</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Tiramisu</div>
+                            <div class="name">Classic Tiramisu</div>
+                            <div class="price">$5.50</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Baklava</div>
+                            <div class="name">Pistachio Baklava</div>
+                            <div class="price">$4.00</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Pie</div>
+                            <div class="name">Lemon Meringue Pie</div>
+                            <div class="price">$5.00</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Cake</div>
+                            <div class="name">Red Velvet Cake</div>
+                            <div class="price">$4.50</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">brownie</div>
+                            <div class="name">Salted Caramel Brownie</div>
+                            <div class="price">$5.50</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Panna Cotta</div>
+                            <div class="name">Vanilla Panna Cotta</div>
+                            <div class="price">$6.50</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order">
+                <div class="your-cart">
+                    <div class="cart-main">Your Cart (0)</div>
+                    <div class="cart-img"></div>
+                    <div class="cart-sub">Your added items will appear here</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

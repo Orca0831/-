@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>1</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            html, body {
+                height: 100%;
+            }
+
+            .container {
+                display: flex;
+                align-items: stretch;
+                min-height: 100vh;
+            }
+
+            aside {
+                width: 350px;
+                background-color: #fff;
+                border-right: 1px solid #ddd;
+                flex-shrink: 0;
+                height: 100vh;
+                overflow: auto;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                padding: 20px;
+                gap: 3px;
+            }
+
+            .logo-icon {
+                width: 45px;
+                height: 45px;
+                background-color: rgb(8, 68, 0);
+                margin: 5px;
+                border-radius: 8px;
+                display: flex;
+            }
+
+            .logo-text {
+                font-size: 22px;
+                font-weight: bold;
+                color: rgb(0, 0, 0);
+            }
+
+            .menu {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+                margin-left: 10px;
+                margin-top: 5px;
+                gap: 5px;
+                font-size: 22px ;
+                color: #505453;
+            }
+
+            .menu-item {
+                padding: 10px;
+                cursor: pointer;
+                border-radius: 10px;
+            }
+
+            .menu-item:nth-child(1) {
+                background-color: #e8f0f0;
+                color: black;
+            }
+
+            .tags {
+                display: flex;
+                margin-top: 30px;
+                padding-left: 30px;
+                flex-direction: column;
+                color: #505453;
+            }
+
+            .t {
+                margin-bottom: 20px;
+            }
+
+            .tags-item {
+                display: flex;
+                flex-direction: column;;
+            }
+
+            .tag {  
+                display: flex;
+                gap: 10px;
+                margin-bottom: 10px;
+                font-size: 22px;
+                width: 300px;
+                align-items: center;
+            }
+
+            /*ai 도움받음. 왼쪽 체크박스 빈공간 클릭 시 체크 되도록*/
+            .tag label {
+                flex: 1;
+                cursor: pointer;
+                display: block;
+                padding: 5px;
+            }
+
+            .num {
+                background-color: #d1e7e7;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                padding: 4px 11px;
+                font-size: 15px;
+                color: #505453;
+            }
+
+            header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: #fff;
+                width: auto;
+                height: 100px;
+                border-bottom: 1px solid #ddd;
+                padding-left: 30px;
+                top: 0;
+                position: sticky;
+            }
+
+                @media screen and (max-width: 1100px) {
+                    header {
+                        gap: 0;
+                    }
+                }
+            .mobile-menu {
+                display: none;
+                width: 50px;
+                height: 50px;
+                border: 1px solid #505453;
+                border-radius: 8px;
+                margin-right: 20px;
+            }
+            
+            .search {
+                width: 300px;
+                flex: 0 1 300px;
+                min-width: 0;
+            }
+
+            .search input {
+                width: 100%;
+                height: 50px;
+                border: 1px solid #505453;
+                border-radius: 8px;
+                padding: 10px 20px;
+                font-size: 14px;
+                margin-left: 30px;
+                font-size: 18px;
+            }
+
+            .right-menu {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .add-bookmark {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                width: 200px;
+                height: 50px;
+                background-color: #024744;
+                color: white;
+                border-radius: 8px;
+                padding-left: 16px;
+                font-size: 20px;
+                margin-right: 20px;
+            }
+
+            .add-bookmark .add-icon {
+                display: inline-block;
+                font-weight: bold;
+            }
+
+            .add-bookmark .add-text {
+                display: inline-block;
+            }
+
+            .image {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: black;
+                margin-right: 20px;
+            }
+
+            main {
+                flex: 1;
+                background-color: #e8f0f0;
+                color: black;
+                height: 100vh;
+                overflow: auto;
+            }
+
+            .bookmark-top {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .bookmark-title {
+                margin: 30px 20px;
+            }
+
+            .sort {
+                display: flex;
+                align-items: center;
+                margin: 30px 20px 0px 0px;
+                font-size: 20px;
+                width: 140px;
+                height: 55px;
+                background-color: white;
+                border-radius: 8px;
+                border: 1px solid black;
+                padding-left: 10px;
+            }
+
+            .bookmark {
+                margin: 0px 20px 20px 20px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+                justify-items: end;
+            }
+
+            .bookmark-grid {
+                margin-bottom: 0px;
+                height: 350px;
+                width: 480px;
+                border: 1px solid #000;
+                border-radius: 8px;
+                background-color: white;
+            }
+
+            .bookmarks-top {
+                width: 100%;
+                height: 110px;
+                display: flex;
+                justify-content: space-between;
+                padding: 25px;
+            }
+
+            .bookmarks-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 60px;
+                height: 60px;
+                background-color: white;
+                border-radius: 8px;
+                margin-right: 15px;
+                border: 1px solid #ddd;
+            }
+
+            .bookmark-grid:nth-child(2) .bookmarks-icon { background-color: #15141A; }
+            .bookmark-grid:nth-child(3) .bookmarks-icon { background-color: #6FBFC7; }
+            .bookmark-grid:nth-child(4) .bookmarks-icon { background-color: #DA7758; }
+            .bookmark-grid:nth-child(5) .bookmarks-icon { background-color: #0065FF; }
+            .bookmark-grid:nth-child(6) .bookmarks-icon { background-color: #35BFFD; }
+            .bookmark-grid:nth-child(7) .bookmarks-icon { background-color: #000000; }
+            .bookmark-grid:nth-child(8) .bookmarks-icon { background-color: #C73439; }
+            .bookmark-grid:nth-child(9) .bookmarks-icon { background-color: #000000; }
+
+            .bookmarks-title {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                flex-grow: 2;
+            }
+
+            .main-title {
+                font-size: 25px;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .sub-title {
+                font-size: 16px;
+                color: gray;
+            }
+
+            .bookmarks-menu {
+                width: 50px;
+                height: 50px;
+                border: 1px solid #505453;
+                border-radius: 8px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                color: #505453;
+                padding-bottom: 5px;
+            }
+
+            .hr {
+                width: 90%;
+                height: 1px;
+                background-color: #ddd;
+                margin: 0 auto;
+            }
+
+            .bookmarks-text {
+                padding: 15px 25px;
+                font-size: 19px;
+                color: #808080;
+                height: 140px;
+            }
+
+            .bookmarks-categoly {
+                display: flex;
+                gap: 10px;
+                padding: 0px 25px;
+            }
+
+            .categoly {
+                display: flex;
+                height: 30px;
+                text-align: center;
+                align-items: center;
+                background-color: #e8f0f0;
+                border-radius: 8px;
+                padding: 5px 15px;
+                font-size: 16px;
+                color: #505453;
+                margin-bottom: 15px;
+            }
+
+            hr {
+                border: none;
+                border-top: 1px solid #ddd;
+            }
+
+            .bookmarks-bottom {
+                height: 50px;
+                display: flex;
+                padding: 0px 25px;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .bookmarks-info {
+                font-size: 15px;
+                color: #808080;
+            }
+
+            .pin {
+                margin-left: auto;
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+            @media screen and (max-width: 1100px) {
+                aside {
+                    display: none;
+                }
+
+                .bookmark {
+                    grid-template-columns: repeat(2, 1fr);
+                    justify-items: center;
+                }
+
+                header {
+                    padding-left: 8px;
+                }
+
+                .mobile-menu {
+                    font-size: 30px;
+                    text-align: center;
+                    display: block;
+                    margin-right: 8px;
+                }
+
+                .search {
+                    width: 300px;
+                    flex: 0 1 300px;
+                    min-width: 0;
+                }
+
+                .search input {
+                    margin-left: 0;
+                }
+
+                @media screen and (max-width: 550px) {
+                    .add-bookmark {
+                        width: 50px;
+                        padding-left: 0;
+                        justify-content: center;
+                    }
+
+                    .add-bookmark .add-text {
+                        display: none;
+                    }
+
+                    .bookmark {
+                    grid-template-columns: repeat(1, 1fr);
+                    justify-items: center;
+                    }
+
+                    .right-menu {
+                        gap: 8px;
+                    }
+
+                    .image {
+                        width: 50px;
+                        height: 50px;
+                        margin-right: 8px;
+                    }
+                }
+
+                .right-menu {
+                    margin-left: auto;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <aside>
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">Bookmark Manager</div>
+                </div>
+
+                <div class="menu">
+                    <div class="menu-item">Home</div>
+                    <div class="menu-item">Archived</div>
+                </div>
+
+                <div class="tags">
+                    <div class="t">
+                        <h4><b>Tags</b></h4>
+                    </div>
+                    <div class="tags-item">
+                        <div class="tag"> <input type="checkbox" id="ai"> <label for="ai">AI</label> <div class="num">1</div> </div>
+                        <div class="tag"> <input type="checkbox" id="community"> <label for="community">Community</label> <div class="num">5</div> </div>
+                        <div class="tag"> <input type="checkbox" id="compatibility"> <label for="compatibility">Compatibility</label> <div class="num">1</div> </div>
+                        <div class="tag"> <input type="checkbox" id="css"> <label for="css">CSS</label> <div class="num">6</div> </div>
+                        <div class="tag"> <input type="checkbox" id="design"> <label for="design">Design</label> <div class="num">1</div> </div>
+                        <div class="tag"> <input type="checkbox" id="framework"> <label for="framework">Framework</label> <div class="num">2</div> </div>
+                        <div class="tag"> <input type="checkbox" id="git"> <label for="git">Git</label> <div class="num">1</div> </div>
+                        <div class="tag"> <input type="checkbox" id="html"> <label for="html">HTML</label> <div class="num">2</div> </div>
+                        <div class="tag"> <input type="checkbox" id="javascript"> <label for="javascript">JavaScript</label> <div class="num">3</div> </div>
+                        <div class="tag"> <input type="checkbox" id="layout"> <label for="layout">Layout</label> <div class="num">3</div> </div>
+                        <div class="tag"> <input type="checkbox" id="learning"> <label for="learning">Learning</label> <div class="num">6</div> </div>
+                        <div class="tag"> <input type="checkbox" id="performance"> <label for="performance">Performance</label> <div class="num">2</div> </div>
+                        <div class="tag"> <input type="checkbox" id="practice"> <label for="practice">Practice</label> <div class="num">5</div> </div>
+                        <div class="tag"> <input type="checkbox" id="reference"> <label for="reference">Reference</label> <div class="num">4</div> </div>
+                        <div class="tag"> <input type="checkbox" id="tips"> <label for="tips">Tips</label> <div class="num">4</div> </div>
+                        <div class="tag"> <input type="checkbox" id="tools"> <label for="tools">Tools</label> <div class="num">4</div> </div>
+                        <div class="tag"> <input type="checkbox" id="tutorial"> <label for="tutorial">Tutorial</label> <div class="num">3</div> </div>
+                    </div>
+                </div>
+            </aside>
+            
+            <main>
+                <header>
+                    <div class="mobile-menu">☰</div>
+                    <div class="search"><input type="text" placeholder="Q Search by title..."></div>
+                    <div class="right-menu">
+                        <div class="add-bookmark"><span class="add-icon">+</span><span class="add-text">Add Bookmark</span></div>
+                        <div class="image"></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="bookmark-top">
+                        <div class="bookmark-title"><h1>All Bookmarks</h1></div>
+                        <div class="sort"><b>↑↓ Sort by</b></div>
+                    </div>
+
+                    <div class="bookmark">
+                        <div class="bookmark-grid">
+                            <div class="bookmarks-top">
+                                <div class="bookmarks-icon"></div>
+                                <div class="bookmarks-title">
+                                    <div class="main-title">Frontend Mentor</div>
+                                    <div class="sub-title">frontendmentor.io</div>
+                                </div>
+                                <div class="bookmarks-menu">⋮</div>
+                            </div>
+                            <div class="hr"></div>
+                            <div class="bookmarks-text">
+                                Improve your front-end coding skills by<br>building real projects. Solve real-world HTML,<br>CSS and JavaScript challenges whilst working<br>to professional designs.
+                            </div>
+                            <div class="bookmarks-categoly">
+                                <div class="categoly">Practice</div>
+                                <div class="categoly">Learning</div>
+                                <div class="categoly">Community</div>
+                            </div>
+                            <hr>
+                            <div class="bookmarks-bottom">
+                                <div class="bookmarks-info">⊙ 47</div>
+                                <div class="bookmarks-info">⊙ 23 Sep</div>
+                                <div class="bookmarks-info">ㅂ 15 Jan</div>
+                                <div class="pin">📌</div>
+                            </div>
+                        </div>
+                        <div class="bookmark-grid">
+                            <div class="bookmarks-top">
+                                <div class="bookmarks-icon"></div>
+                                <div class="bookmarks-title">
+                                    <div class="main-title">MDN Web Docs</div>
+                                    <div class="sub-title">developer.mozilla.org</div>
+                                </div>
+                                <div class="bookmarks-menu">⋮</div>
+                            </div>
+                            <div class="hr"></div>
+                            <div class="bookmarks-text">
+                                The MDN Web Docs site provides information<br>about Open Web technologies including<br>HTML, CSS, and APIs for both Web sites and<br>progressive web apps.
+                            </div>
+                            <div class="bookmarks-categoly">
+                                <div class="categoly">Reference</div>
+                                <div class="categoly">HTML</div>
+                                <div class="categoly">CSS</div>
+                                <div class="categoly">JavaScript</div>
+                            </div>
+                            <hr>
+                            <div class="bookmarks-bottom">
+                                <div class="bookmarks-info">⊙ 152</div>
+                                <div class="bookmarks-info">⊙ 24 Sep</div>
+                                <div class="bookmarks-info">ㅂ 10 Jan</div>
+                                <div class="pin">📌</div>
+                            </div>
+                        </div>
+                        <div class="bookmark-grid">
+                            <div class="bookmarks-top">
+                                <div class="bookmarks-icon"></div>
+                                <div class="bookmarks-title">
+                                    <div class="main-title">React Docs</div>
+                                    <div class="sub-title">react.dev</div>
+                                </div>
+                                <div class="bookmarks-menu">⋮</div>
+                            </div>
+                            <div class="hr"></div>
+                            <div class="bookmarks-text">
+                                The library for web and native user interfaces,<br>Build user interfaces out of individual pieces<br>called components.
+                            </div>
+                            <div class="bookmarks-categoly">
+                                <div class="categoly">JavaScript</div>
+                                <div class="categoly">Framework</div>
+                                <div class="categoly">Reference</div>
+                            </div>
+                            <hr>
+                            <div class="bookmarks-bottom">
+                                <div class="bookmarks-info">⊙ 0</div>
+                                <div class="bookmarks-info">⊙ Never</div>
+                                <div class="bookmarks-info">ㅂ 20 Feb</div>
+                                <div class="pin">📌</div>
+                            </div>
+                        </div>
+                        <div class="bookmark-grid">
+                            <div class="bookmarks-top">
+                                <div class="bookmarks-icon"></div>
+                                <div class="bookmarks-title">
+                                    <div class="main-title">Claude</div>
+                                    <div class="sub-title">claude.ai</div>
+                                </div>
+                                <div class="bookmarks-menu">⋮</div>
+                            </div>
+                            <div class="hr"></div>
+                            <div class="bookmarks-text">
+                                An AI assistant created by Anthropic that can<br>help with analysis, coding, math, and<br>creative tasks through natural language conversation.
+                            </div>
+                            <div class="bookmarks-categoly">
+                                <div class="categoly">Tools</div>
+                                <div class="categoly">Ai</div>
+                                <div class="categoly">Learning</div>
+                            </div>
+                            <hr>
+                            <div class="bookmarks-bottom">
+                                <div class="bookmarks-info">⊙ 73</div>
+                                <div class="bookmarks-info">⊙ 23 Sep</div>
+                                <div class="bookmarks-info">ㅂ 18 Feb</div>
+                                <div class="pin">📌</div>
+                            </div>
+                        </div>
+                        <div class="bookmark-grid">
+                            <div class="bookmarks-top">
+                                <div class="bookmarks-icon"></div>
+                                <div class="bookmarks-title">
+                                    <div class="main-title">web.dev</div>
+                                    <div class="sub-title">web.dev</div>
+                                </div>
+                                <div class="bookmarks-menu">⋮</div>
+                            </div>
+                            <div class="hr"></div>
+                            <div class="bookmarks-text">
+                                Guidence to build modern web experiences<br>that work on any browser. Learn about web<br>vitals, performance, PWA, and more.
+                            </div>
+                            <div class="bookmarks-categoly">
+                                <div class="categoly">performance</div>
+                                <div class="categoly">Learning</div>
+                                <div class="categoly">Tips</div>
+                            </div>
+                            <hr>
+                            <div class="bookmarks-bottom">
+                                <div class="bookmarks-info">⊙ 15</div>
+                                <div class="bookmarks-info">⊙ 16 Aug</div>
+                                <div class="bookmarks-info">ㅂ 15 Feb</div>
+                                <div class="pin">📌</div>
+                            </div>
+                        </div>
+                        <div class="bookmark-grid">
+                            <div class="bookmarks-top">
+                                <div class="bookmarks-icon"></div>
+                                <div class="bookmarks-title">
+                                    <div class="main-title">Tailwind CSS</div>
+                                    <div class="sub-title">tailwindcss.com</div>
+                                </div>
+                                <div class="bookmarks-menu">⋮</div>
+                            </div>
+                            <div class="hr"></div>
+                            <div class="bookmarks-text">
+                                A utility-first CSS framework for rapidly<br>building mordern websites without ever<br>leaving your HTML.
+                            </div>
+                            <div class="bookmarks-categoly">
+                                <div class="categoly">CSS</div>
+                                <div class="categoly">Framework</div>
+                                <div class="categoly">Tools</div>
+                            </div>
+                            <hr>
+                            <div class="bookmarks-bottom">
+                                <div class="bookmarks-info">⊙ 52</div>
+                                <div class="bookmarks-info">⊙ 19 Sep</div>
+                                <div class="bookmarks-info">ㅂ 12 Feb</div>
+                                <div class="pin">📌</div>
+                            </div>
+                        </div>
+                        <div class="bookmark-grid">
+                            <div class="bookmarks-top">
+                                <div class="bookmarks-icon"></div>
+                                <div class="bookmarks-title">
+                                    <div class="main-title">Dev.to</div>
+                                    <div class="sub-title">dev.to</div>
+                                </div>
+                                <div class="bookmarks-menu">⋮</div>
+                            </div>
+                            <div class="hr"></div>
+                            <div class="bookmarks-text">
+                                A constructive and inclusive social network<br>for software
+                            </div>
+                            <div class="bookmarks-categoly">
+                                <div class="categoly">Practice</div>
+                                <div class="categoly">Learning</div>
+                                <div class="categoly">Community</div>
+                            </div>
+                            <hr>
+                            <div class="bookmarks-bottom">
+                                <div class="bookmarks-info">⊙ 47</div>
+                                <div class="bookmarks-info">⊙ 23 Sep</div>
+                                <div class="bookmarks-info">ㅂ 15 Jan</div>
+                                <div class="pin">📌</div>
+                            </div>
+                        </div>
+                        <div class="bookmark-grid">
+                            <div class="bookmarks-top">
+                                <div class="bookmarks-icon"></div>
+                                <div class="bookmarks-title">
+                                    <div class="main-title">JavaScript.info</div>
+                                    <div class="sub-title">javascript.info</div>
+                                </div>
+                                <div class="bookmarks-menu">⋮</div>
+                            </div>
+                            <div class="hr"></div>
+                            <div class="bookmarks-text">
+                                The mordern JavaScript tutorial. How it's done<br>now, From the basics to advanced topics with<br>Simple, but detailed explanations.
+                            </div>
+                            <div class="bookmarks-categoly">
+                                <div class="categoly">Practice</div>
+                                <div class="categoly">Learning</div>
+                                <div class="categoly">Community</div>
+                            </div>
+                            <hr>
+                            <div class="bookmarks-bottom">
+                                <div class="bookmarks-info">⊙ 47</div>
+                                <div class="bookmarks-info">⊙ 23 Sep</div>
+                                <div class="bookmarks-info">ㅂ 15 Jan</div>
+                                <div class="pin">📌</div>
+                            </div>
+                        </div>
+                        <div class="bookmark-grid">
+                            <div class="bookmarks-top">
+                                <div class="bookmarks-icon"></div>
+                                <div class="bookmarks-title">
+                                    <div class="main-title">freeCodeCamp</div>
+                                    <div class="sub-title">freeCodeCamp.org</div>
+                                </div>
+                                <div class="bookmarks-menu">⋮</div>
+                            </div>
+                            <div class="hr"></div>
+                            <div class="bookmarks-text">
+                                Learn to code for free. Build projects. Earn<br>certifications. An open source community<br>that helps you learn to code with free online<br>courses and certifications.
+                            </div>
+                            <div class="bookmarks-categoly">
+                                <div class="categoly">Practice</div>
+                                <div class="categoly">Learning</div>
+                                <div class="categoly">Community</div>
+                            </div>
+                            <hr>
+                            <div class="bookmarks-bottom">
+                                <div class="bookmarks-info">⊙ 47</div>
+                                <div class="bookmarks-info">⊙ 23 Sep</div>
+                                <div class="bookmarks-info">ㅂ 15 Jan</div>
+                                <div class="pin">📌</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

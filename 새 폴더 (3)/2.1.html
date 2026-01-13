@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>2.1</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            .container {
+                width: 100%;
+                min-height: 100vh;
+                display: flex;
+                justify-content: start;
+                background-color: #FCF8F5;
+                overflow: auto;
+            }
+
+            .order-menu {
+                width: 70%;
+                min-height: 100vh;
+                padding-bottom: 10px;
+            }
+
+            .main-text {
+                margin: 100px 0 0 120px;
+                font-size: 50px;
+                font-weight: bold;
+            }
+
+            .main {
+                width: 85%;
+                height: auto;
+                margin: 50px 0 120px 120px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .menu {
+                width: 350px;
+                height: 500px;
+                margin: 0 0 20px 0;
+            }
+
+            .menu-container {
+                width: 350px;
+                height: 350px;
+                border-radius: 20px;
+                overflow: hidden;
+            }
+
+            .menu-img {
+                width: 350px;
+                height: 350px;
+                background-color: #ff000088;
+                border-radius: 20px;
+                display: block;
+            }
+
+            .menu:nth-child(2) .menu-img { background-color: #FFC510; border: 3px solid #ff0000; }
+            .menu:nth-child(3) .menu-img { background-color: #E3E4DD; }
+            .menu:nth-child(4) .menu-img { background-color: #9E664A; border: 3px solid #ff0000; }
+            .menu:nth-child(5) .menu-img { background-color: #B96F32; }
+            .menu:nth-child(6) .menu-img { background-color: #FFCF44; }
+            .menu:nth-child(7) .menu-img { background-color: #DE3B28; }
+            .menu:nth-child(8) .menu-img { background-color: #85491A; }
+            .menu:nth-child(9) .menu-img { background-color: #ACC7BF; border: 3px solid #ff0000; }
+
+
+            .add {
+                width: 200px;
+                height: 60px;
+                background-color: #fff;
+                margin: -40px 0 0 75px;
+                font-size: 18px;
+                font-weight: bold;
+                border-radius: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #BEB4B6;
+                cursor: pointer;
+            }
+
+            .menu:nth-child(2) .add {
+                border: none;
+                background-color: #ff0000;
+                color: white;
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .menu:nth-child(4) .add {
+                border: none;
+                background-color: #ff0000;
+                color: white;
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .menu:nth-child(9) .add {
+                border: none;
+                background-color: #ff0000;
+                color: white;
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .plus, .minus {
+                font-size: 25px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .menu-text {
+                margin: 40px 0 0 10px;
+            }
+
+            .sub {
+                font-size: 18px;
+                color: #BEB4B6;
+            }
+
+            .name {
+                font-size: 20px;
+                color: black;
+                font-weight: bold;
+                margin: 5px 0 5px 0;
+            }
+
+            .price {
+                font-size: 20px;
+                color: #ec1717;
+                font-weight: bold;
+            }
+
+            .order {
+                width: 500px;
+                height: 600px;
+                background-color: white;
+                margin: 100px 0 0 0;
+                border-radius: 20px;
+            }
+
+            .cart-main {
+                font-size: 30px;
+                font-weight: bold;
+                color: #BD4D23;
+                margin: 25px;
+            }
+
+            .cart-img {
+                display: none;
+                width: 150px;
+                height: 150px;
+                background-color: #88625A;
+                margin: 20px auto 0 auto;
+                border-radius: 50%;
+            }
+
+            .cart-sub {
+                display: none;
+                font-size: 18px;
+                color: #85716E;
+                text-align: center;
+                margin: 20px 0 0 0;
+            }
+
+            .cart-menu {
+                width: 460px;
+                height: auto;
+                margin: 10px 20px 0 20px;
+                overflow-y: visible;
+            }
+
+            .cart-item {
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-wrap: wrap;
+                border-bottom: 1px solid #ddd;
+                position: relative;
+                padding: 10px 0;
+                align-content: flex-start;
+            }
+
+            .cart-item-name {
+                width: 100%;
+                font-size: 17px;
+                margin-bottom: 8px;
+            }
+
+            .cart-item-quantity {
+                font-size: 18px;
+                margin-left: 0;
+                color: #c70000;
+            }
+
+            .a {
+                font-size: 13px;
+                margin-left: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            } 
+
+            .cart-item-price {
+                font-size: 18px;
+                margin-left: 10px;
+                color: #BEB4B6;
+            }
+
+            .cart-item-prices {
+                font-size: 18px;
+                margin-left: 10px;
+                font-weight: bold;
+            }
+
+            .cancel {
+                font-size: 20px;
+                color: #BEB4B6;
+                position: absolute;
+                right: 10px;
+                cursor: pointer;
+            }
+
+            .order-total {
+                width: 460px;
+                height: auto;
+                margin: 20px 20px 0 20px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .total-text {
+                display: flex;
+                align-items: center;
+                font-size: 15px;
+            }
+
+            .total-price {
+                font-size: 30px;
+                font-weight: bold;
+            }
+
+            .remain {
+                width: 450px;
+                height: 60px;
+                margin: 20px 25px 0 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #F4F1EE;
+                border-radius: 10px;
+                font-size: 14px;
+            }
+
+            .confirm-order {
+                width: 450px;
+                height: 60px;
+                background-color: #bd2323;
+                color: white;
+                font-size: 20px;
+                font-weight: bold;
+                border-radius: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 30px 25px 0 25px;
+                cursor: pointer;
+            }
+
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .modal-box {
+                background: white;
+                width: 800px;
+                padding: 40px;
+                border-radius: 20px;
+                text-align: center;
+            }
+
+            .modal-top {
+                margin-bottom: 30px;
+                display: flex;
+                align-items: start;
+                flex-direction: column;
+            }
+
+            .checkmark {
+                width: 60px;
+                height: 60px;
+                border: 1px solid #00aa17;
+                border-radius: 50%;
+                color: #00aa17;
+                font-size: 35px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 0 20px 0;
+            }
+
+            .modal-title {
+                font-size: 50px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            .modal-subtitle {
+                color: #999;
+                margin-bottom: 30px;
+            }
+
+            .modal-menu {
+                padding: 20px;
+                text-align: left;
+                margin-bottom: 20px;
+                background-color: #F9F7F5;
+                border-radius: 20px;
+            }
+
+            .modal-items {
+                margin-bottom: 30px;
+                text-align: left;
+            }
+
+            .modal-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 0;
+                border-bottom: 1px solid #eee;
+            }
+
+            .modal-item-left {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .modal-item-img {
+                width: 45px;
+                height: 45px;
+                background: #D4A574;
+                border-radius: 5px;
+            }
+
+            .modal-item-info {
+                display: flex;
+                flex-direction: column;
+                font-size: 14px;
+            }
+
+            .modal-item-name {
+                font-weight: bold;
+            }
+
+            .modal-item-num {
+                color: #BD4D23;
+                font-weight: bold;
+            }
+
+            .modal-item-detail {
+                color: #999;
+            }
+
+            .modal-total {
+                display: flex;
+                justify-content: space-between;
+                font-weight: bold;
+                font-size: 18px;
+                padding: 20px 0;
+                border-bottom: 1px solid #eee;
+                margin-bottom: 20px;
+            }
+
+            .modal-button {
+                width: 100%;
+                padding: 15px;
+                background: #BD4D23;
+                color: white;
+                border: none;
+                border-radius: 25px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="modal-overlay">
+            <div class="modal-box">
+                <div class="modal-top">
+                    <div class="checkmark">✓</div>
+                    <div class="modal-title">Order Confirmed</div>
+                    <div class="modal-subtitle">We hope you enjoy your food!</div>
+                </div>
+                <div class="modal-menu">
+                    <div class="modal-items">
+                        <div class="modal-item">
+                            <div class="modal-item-left">
+                                <div class="modal-item-img"></div>
+                                <div class="modal-item-info">
+                                    <div class="modal-item-name">Classic Tiramisu</div>
+                                    <div class="modal-item-detail"><span class="modal-item-num">1x</span> @ $5.50</div>
+                                </div>
+                            </div>
+                            <div>$5.50</div>
+                        </div>
+
+                        <div class="modal-item">
+                            <div class="modal-item-left">
+                                <div class="modal-item-img"></div>
+                                <div class="modal-item-info">
+                                    <div class="modal-item-name">Vanila Bean Creme Brulee</div>
+                                    <div class="modal-item-detail"><span class="modal-item-num">4x</span> @ $7.00</div>
+                                </div>
+                            </div>
+                            <div>$28.00</div>
+                        </div>
+
+                        <div class="modal-item">
+                            <div class="modal-item-left">
+                                <div class="modal-item-img"></div>
+                                <div class="modal-item-info">
+                                    <div class="modal-item-name">Vanilla Panna Cotta</div>
+                                    <div class="modal-item-detail"><span class="modal-item-num">2x</span> @ $6.50</div>
+                                </div>
+                            </div>
+                            <div>$13.00</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-total">
+                        <span>Order Total</span>
+                        <span>$46.50</span>
+                    </div>
+                </div>
+                <button class="modal-button">Start New Order</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="order-menu">
+                <div class="main-text">Desserts</div>
+                <div class="main">
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">waffle</div>
+                            <div class="name">Waffle with Berries</div>
+                            <div class="price">$6.50</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">
+                            <div class="minus">⊖</div>
+                            <div class="num">4</div>
+                            <div class="plus">⊕</div>
+                        </div>
+                        <div class="menu-text">
+                            <div class="sub">Creme Brulee</div>
+                            <div class="name">Vanila Bean Creme Brulee</div>
+                            <div class="price">$7.00</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Macaron</div>
+                            <div class="name">Mavcaron Mix of Five</div>
+                            <div class="price">$8.00</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">
+                            <div class="minus">⊖</div>
+                            <div class="num">1</div>
+                            <div class="plus">⊕</div>
+                        </div>
+                        <div class="menu-text">
+                            <div class="sub">Tiramisu</div>
+                            <div class="name">Classic Tiramisu</div>
+                            <div class="price">$5.50</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Baklava</div>
+                            <div class="name">Pistachio Baklava</div>
+                            <div class="price">$4.00</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Pie</div>
+                            <div class="name">Lemon Meringue Pie</div>
+                            <div class="price">$5.00</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">Cake</div>
+                            <div class="name">Red Velvet Cake</div>
+                            <div class="price">$4.50</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">+ Add to Cart</div>
+                        <div class="menu-text">
+                            <div class="sub">brownie</div>
+                            <div class="name">Salted Caramel Brownie</div>
+                            <div class="price">$5.50</div>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <div class="menu-container">
+                            <div class="menu-img"></div>
+                        </div>
+                        <div class="add">
+                            <div class="minus">⊖</div>
+                            <div class="num">2</div>
+                            <div class="plus">⊕</div>
+                        </div>
+                        <div class="menu-text">
+                            <div class="sub">Panna Cotta</div>
+                            <div class="name">Vanilla Panna Cotta</div>
+                            <div class="price">$6.50</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order">
+                <div class="your-cart">
+                    <div class="cart-main">Your Cart (7)</div>
+                    <div class="cart-img"></div>
+                    <div class="cart-sub">Your added items will appear here</div>
+                    <div class="cart-menu">
+                        <div class="cart-item">
+                            <div class="cart-item-name">Classic Tiramisu</div>
+                            <div class="cart-item-quantity">1x</div>
+                            <div class="a">@</div>
+                            <div class="cart-item-price">$5.50</div>
+                            <div class="cart-item-prices">$5.50</div>
+                            <div class="cancel">⊗</div>
+                        </div>
+                        <div class="cart-item">
+                            <div class="cart-item-name">Vanila Bean Creme Brulee</div>
+                            <div class="cart-item-quantity">4x</div>
+                            <div class="a">@</div>
+                            <div class="cart-item-price">$7.00</div>
+                            <div class="cart-item-prices">$28.00</div>
+                            <div class="cancel">⊗</div>
+                        </div>
+                        <div class="cart-item">
+                            <div class="cart-item-name">Vanilla Panna Cotta</div>
+                            <div class="cart-item-quantity">2x</div>
+                            <div class="a">@</div>
+                            <div class="cart-item-price">$6.50</div>
+                            <div class="cart-item-prices">$13.00</div>
+                            <div class="cancel">⊗</div>
+                        </div>
+                    </div>
+                    <div class="order-total">
+                        <div class="total-text">Order Total</div>
+                        <div class="total-price">$46.50</div>
+                    </div>
+                    <div class="remain"><p>This is a <b>carbon-neutral</b> delivery</p></div>
+                    <div class="confirm-order">Confirm Order</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
